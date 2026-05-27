@@ -41,6 +41,6 @@ public class Main {
 
         // static usage
         System.out.println("Total Students Created: " +
-                Student.getTotalStudents());
+                Student.getStud());
     }
 }
