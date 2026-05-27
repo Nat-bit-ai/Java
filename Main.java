@@ -1,46 +1,93 @@
 package main;
 
+import java.util.Scanner;
+import person.Person;
+
 public class Main {
 
     public static void main(String[] args) {
 
-        StudentDB db = new StudentDB();
+        Scanner input = new Scanner(System.in);
 
-        // add students
-        Student s1 = new Student();
-        s1.setId(1);
-        s1.setName("Natnael");
-        s1.setGrade(95);
+        // number of persons
+        System.out.print("Enter number of persons: ");
+        int n = input.nextInt();
+        input.nextLine();
 
-        Student s2 = new Student();
-        s2.setId(2);
-        s2.setName("Abel");
-        s2.setGrade(88);
+        // array of Person objects
+        Person[] people = new Person[n];
 
-        db.addStudent(s1);
-        db.addStudent(s2);
+        // input persons
+        for (int i = 0; i < n; i++) {
 
-        // show all
-        db.showAll();
+            System.out.println("Enter details for person " + (i + 1));
 
-        // search
-        System.out.println("Searching ID 1:");
-        Student found = db.searchById(1);
-        if (found != null) {
-            System.out.println(found.getName());
+            System.out.print("Name: ");
+            String name = input.nextLine();
+
+            System.out.print("Age: ");
+            int age = input.nextInt();
+            input.nextLine();
+
+            System.out.print("City: ");
+            String city = input.nextLine();
+
+            // store object in array
+            people[i] = new Person(name, age, city);
         }
 
-        // update
-        db.updateStudent(2, "Abel Updated", 92);
+        // update age
+        System.out.print("Enter index to update age: ");
+        int index = input.nextInt();
 
-        // delete
-        db.deleteStudent(1);
+        if (index >= 0 && index < n) {
+            System.out.print("Enter new age: ");
+            int newAge = input.nextInt();
 
-        System.out.println("After update & delete:");
-        db.showAll();
+            people[index].updateAge(people[index], newAge);
+        } else {
+            System.out.println("Invalid index! Skipping update.");
+        }
 
-        // static usage
-        System.out.println("Total Students Created: " +
-                Student.getStud());
+        input.nextLine();
+
+        // create modified person
+        Person modifiedPerson = null;
+
+        System.out.print("Enter index for modified person: ");
+        int idx = input.nextInt();
+        input.nextLine();
+
+        if (idx >= 0 && idx < n) {
+
+            System.out.print("New name: ");
+            String newName = input.nextLine();
+
+            System.out.print("New age: ");
+            int newAge = input.nextInt();
+            input.nextLine();
+
+            System.out.print("New city: ");
+            String newCity = input.nextLine();
+
+            modifiedPerson = people[idx].getModifiedPerson(newName, newAge, newCity);
+
+        } else {
+            System.out.println("Invalid index! No modified person created.");
+        }
+
+        // display all persons
+        System.out.println("\n=== ALL PERSONS ===");
+        for (Person p : people) {
+            p.display();
+        }
+
+        // display modified person
+        if (modifiedPerson != null) {
+            System.out.println("=== MODIFIED PERSON ===");
+            modifiedPerson.display();
+        }
+
+        input.close();
     }
 }
