@@ -1,21 +1,12 @@
 package main;
 import main.Factorial;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 public class Main {
 	public static void main(String[] args) {
-		Scanner input = new Scanner(System.in);
-		System.out.print("Enter a number: ");
-        int num = input.nextInt();
-
-        Factorial obj = new Factorial();
-
-        System.out.println("Recursive Factorial: "
-                + obj.recursiveFactorial(num));
-
-        System.out.println("Non-Recursive Factorial: "
-                + obj.nonRecursiveFactorial(num));
-
-        input.close();
+		String name = JOptionPane.showInputDialog("what is ur name : ");
+		String Message = String.format("Welcome, %s, to Java Programming!", name);
+		JOptionPane.showMessageDialog(null, Message);
 	}
 }
